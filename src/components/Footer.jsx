@@ -22,7 +22,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/thomas-windels-341052214/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-accent-400 transition-colors"

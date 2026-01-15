@@ -129,7 +129,7 @@ const Contact = () => {
                 </div>
 
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/thomas-windels-341052214/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all"
