@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes, FaPhone } from 'react-icons/fa';
+import { FaBars, FaTimes, FaPhone, FaCity } from 'react-icons/fa';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +16,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <div className="w-12 h-12 bg-accent-500 rounded-lg flex items-center justify-center">
-              <span className="text-primary-900 font-bold text-2xl">W</span>
+              <FaCity className="text-primary-900 text-2xl" />
             </div>
             <div className="hidden sm:block">
               <div className="text-xl font-bold text-white">Thomas R. Windels</div>

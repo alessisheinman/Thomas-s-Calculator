@@ -1,4 +1,4 @@
-import { FaLinkedin, FaMapMarkerAlt, FaPhone, FaEnvelope, FaBuilding } from 'react-icons/fa';
+import { FaLinkedin, FaMapMarkerAlt, FaPhone, FaEnvelope, FaBuilding, FaCity } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -10,7 +10,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-accent-500 rounded-lg flex items-center justify-center">
-                <span className="text-primary-900 font-bold text-2xl">W</span>
+                <FaCity className="text-primary-900 text-2xl" />
               </div>
               <div>
                 <div className="text-lg font-bold text-white">Thomas R. Windels</div>
