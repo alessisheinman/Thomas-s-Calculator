@@ -500,58 +500,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials / Trust Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 text-primary-600 mb-4">
-              <span className="w-8 h-[2px] bg-accent-500" />
-              <span className="text-sm font-semibold tracking-wide uppercase">Client Success</span>
-              <span className="w-8 h-[2px] bg-accent-500" />
-            </div>
-            <h2 className="text-4xl font-bold text-gray-900">Trusted by Property Owners</h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { name: 'Robert K.', role: 'Building Owner', text: 'Thomas provided an incredibly accurate valuation and helped us maximize our sale price. His knowledge of Downtown Manhattan is unmatched.' },
-              { name: 'Michelle S.', role: 'Property Investor', text: 'The calculator gave us a great starting point, and Thomas\'s detailed analysis helped us make a confident investment decision.' },
-              { name: 'David L.', role: 'Real Estate Developer', text: 'Professional, responsive, and deeply knowledgeable. Thomas has been our go-to advisor for all Downtown Manhattan transactions.' },
-            ].map((review, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="relative p-8 border-l-4 border-primary-500 bg-gray-50"
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className="text-accent-500 text-sm" />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-6 leading-relaxed italic">"{review.text}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-bold">
-                    {review.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900">{review.name}</p>
-                    <p className="text-sm text-gray-500">{review.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="bg-primary-700 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
