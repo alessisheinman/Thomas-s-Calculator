@@ -22,29 +22,142 @@ function App() {
   const [contactEmail, setContactEmail] = useState('');
   const [buildingAddress, setBuildingAddress] = useState('');
 
-  const submarkets = [
-    'Lower East Side',
-    'East Village',
-    'Chelsea',
-    'Upper East Side',
-    'Upper West Side',
-    'Chinatown',
-    'Midtown East',
-    'Midtown West',
-    'West Village',
-    'SoHo',
-    'TriBeCa',
-    'Gramercy',
-    'Greenwich Village',
-    'NoHo'
-  ];
+  // Cap rate data from CSV - organized by submarket and free market percentage
+  const capRateData = {
+    'Lower East Side': {
+      100: { low: 0.05, high: 0.06 },
+      75: { low: 0.055, high: 0.065 },
+      50: { low: 0.06, high: 0.07 },
+      25: { low: 0.065, high: 0.075 },
+      0: { low: 0.07, high: 0.08 }
+    },
+    'East Village': {
+      100: { low: 0.05, high: 0.06 },
+      75: { low: 0.055, high: 0.065 },
+      50: { low: 0.06, high: 0.07 },
+      25: { low: 0.065, high: 0.075 },
+      0: { low: 0.07, high: 0.08 }
+    },
+    'Chelsea': {
+      100: { low: 0.05, high: 0.06 },
+      75: { low: 0.055, high: 0.065 },
+      50: { low: 0.06, high: 0.07 },
+      25: { low: 0.065, high: 0.075 },
+      0: { low: 0.07, high: 0.08 }
+    },
+    'Upper East Side': {
+      100: { low: 0.05, high: 0.06 },
+      75: { low: 0.055, high: 0.065 },
+      50: { low: 0.06, high: 0.07 },
+      25: { low: 0.065, high: 0.075 },
+      0: { low: 0.07, high: 0.08 }
+    },
+    'Upper West Side': {
+      100: { low: 0.05, high: 0.06 },
+      75: { low: 0.055, high: 0.065 },
+      50: { low: 0.06, high: 0.07 },
+      25: { low: 0.065, high: 0.075 },
+      0: { low: 0.07, high: 0.08 }
+    },
+    'Chinatown': {
+      100: { low: 0.055, high: 0.065 },
+      75: { low: 0.06, high: 0.07 },
+      50: { low: 0.065, high: 0.075 },
+      25: { low: 0.07, high: 0.08 },
+      0: { low: 0.075, high: 0.085 }
+    },
+    'Midtown East': {
+      100: { low: 0.0525, high: 0.0625 },
+      75: { low: 0.0575, high: 0.0675 },
+      50: { low: 0.0625, high: 0.0725 },
+      25: { low: 0.0675, high: 0.0775 },
+      0: { low: 0.0725, high: 0.0825 }
+    },
+    'Midtown West': {
+      100: { low: 0.0525, high: 0.0625 },
+      75: { low: 0.0575, high: 0.0675 },
+      50: { low: 0.0625, high: 0.0725 },
+      25: { low: 0.0675, high: 0.0775 },
+      0: { low: 0.0725, high: 0.0825 }
+    },
+    'West Village': {
+      100: { low: 0.0475, high: 0.0575 },
+      75: { low: 0.0525, high: 0.0625 },
+      50: { low: 0.0575, high: 0.0675 },
+      25: { low: 0.0625, high: 0.0725 },
+      0: { low: 0.0675, high: 0.0775 }
+    },
+    'SoHo': {
+      100: { low: 0.0475, high: 0.0575 },
+      75: { low: 0.0525, high: 0.0625 },
+      50: { low: 0.0575, high: 0.0675 },
+      25: { low: 0.0625, high: 0.0725 },
+      0: { low: 0.0675, high: 0.0775 }
+    },
+    'TriBeCa': {
+      100: { low: 0.0475, high: 0.0575 },
+      75: { low: 0.0525, high: 0.0625 },
+      50: { low: 0.0575, high: 0.0675 },
+      25: { low: 0.0625, high: 0.0725 },
+      0: { low: 0.0675, high: 0.0775 }
+    },
+    'Gramercy': {
+      100: { low: 0.05, high: 0.06 },
+      75: { low: 0.055, high: 0.065 },
+      50: { low: 0.06, high: 0.07 },
+      25: { low: 0.065, high: 0.075 },
+      0: { low: 0.07, high: 0.08 }
+    },
+    'Greenwich Village': {
+      100: { low: 0.0475, high: 0.0575 },
+      75: { low: 0.0525, high: 0.0625 },
+      50: { low: 0.0575, high: 0.0675 },
+      25: { low: 0.0625, high: 0.0725 },
+      0: { low: 0.0675, high: 0.0775 }
+    },
+    'NoHo': {
+      100: { low: 0.0475, high: 0.0575 },
+      75: { low: 0.0525, high: 0.0625 },
+      50: { low: 0.0575, high: 0.0675 },
+      25: { low: 0.0625, high: 0.0725 },
+      0: { low: 0.0675, high: 0.0775 }
+    }
+  };
 
-  const getCapRateBand = (freeMarket) => {
-    if (freeMarket >= 80) return { low: 0.045, high: 0.055, label: 'Mostly Free Market (80%+)' };
-    if (freeMarket >= 60) return { low: 0.05, high: 0.06, label: 'Majority Free Market (60-79%)' };
-    if (freeMarket >= 40) return { low: 0.055, high: 0.065, label: 'Mixed Portfolio (40-59%)' };
-    if (freeMarket >= 20) return { low: 0.06, high: 0.07, label: 'Majority Stabilized (20-39%)' };
-    return { low: 0.065, high: 0.08, label: 'Mostly Stabilized (<20%)' };
+  const submarkets = Object.keys(capRateData);
+
+  const getCapRateBand = (selectedSubmarket, freeMarket) => {
+    const submarketData = capRateData[selectedSubmarket];
+    if (!submarketData) {
+      return { low: 0.06, high: 0.07, label: 'Default' };
+    }
+
+    // Determine which FM bracket to use based on the slider value
+    let fmBracket;
+    let label;
+    if (freeMarket >= 87.5) {
+      fmBracket = 100;
+      label = '100% Free Market';
+    } else if (freeMarket >= 62.5) {
+      fmBracket = 75;
+      label = '75% Free Market';
+    } else if (freeMarket >= 37.5) {
+      fmBracket = 50;
+      label = '50% Free Market';
+    } else if (freeMarket >= 12.5) {
+      fmBracket = 25;
+      label = '25% Free Market';
+    } else {
+      fmBracket = 0;
+      label = '0% Free Market';
+    }
+
+    const rates = submarketData[fmBracket];
+    return {
+      low: rates.low,
+      high: rates.high,
+      label: `${selectedSubmarket} - ${label}`
+    };
   };
 
   const calculateValue = async () => {
@@ -79,7 +192,7 @@ function App() {
     const expenses = parseFloat(operatingExpenses.replace(/,/g, '')) || 0;
 
     const noi = residential + retail - expenses;
-    const capBand = getCapRateBand(freeMarketPercent);
+    const capBand = getCapRateBand(submarket, freeMarketPercent);
 
     const valueLow = noi / capBand.high;
     const valueHigh = noi / capBand.low;
