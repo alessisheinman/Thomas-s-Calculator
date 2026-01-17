@@ -334,22 +334,9 @@ function App() {
                 </>
               ) : (
                 <div className="bg-white/10 backdrop-blur p-8 rounded-xl h-full flex flex-col items-center justify-center text-center">
-                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
-                    <FaCalculator className="text-white text-2xl" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Enter Your Property Details</h3>
-                  <p className="text-gray-300 max-w-sm">
-                    Fill in the income and expense information to see your estimated property value.
+                  <p className="text-gray-300">
+                    The analysis reflects current market and submarket data
                   </p>
-                  <div className="mt-6 space-y-3 w-full text-left">
-                    <div className="bg-white/10 p-4 rounded-lg">
-                      <div className="font-semibold text-white text-sm">How it works:</div>
-                      <p className="text-gray-300 text-sm mt-1">
-                        NOI = Total Income - Operating Expenses<br />
-                        Value = NOI / Cap Rate
-                      </p>
-                    </div>
-                  </div>
                 </div>
               )}
             </motion.div>
