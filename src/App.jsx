@@ -25,6 +25,20 @@ function App() {
   };
 
   const calculateValue = () => {
+    // Validate required fields
+    if (!residentialIncome.trim()) {
+      alert('Please enter Annual Residential Income');
+      return;
+    }
+    if (!operatingExpenses.trim()) {
+      alert('Please enter Annual Operating Expenses');
+      return;
+    }
+    if (buildingType === 'mixed-use' && !retailIncome.trim()) {
+      alert('Please enter Annual Retail Income');
+      return;
+    }
+
     const residential = parseFloat(residentialIncome.replace(/,/g, '')) || 0;
     const retail = buildingType === 'mixed-use' ? (parseFloat(retailIncome.replace(/,/g, '')) || 0) : 0;
     const expenses = parseFloat(operatingExpenses.replace(/,/g, '')) || 0;
