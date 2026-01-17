@@ -111,14 +111,11 @@ const Home = () => {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Property Value
-                <span className="block text-primary-600">Calculator</span>
+                Building Analysis Prepared for Property Owner
+                
               </h1>
 
-              <p className="text-lg text-gray-600 mb-10 leading-relaxed max-w-md">
-                Estimate your building's value based on Net Operating Income (NOI) and current Downtown Manhattan cap rates.
-                Get instant, data-driven insights for your investment decisions.
-              </p>
+    
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <a
