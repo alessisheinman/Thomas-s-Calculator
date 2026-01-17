@@ -292,22 +292,35 @@ function App() {
         mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
       });
 
-      // Upload to Catbox.moe to get a download link
-      const formData = new FormData();
-      formData.append('reqtype', 'fileupload');
-      formData.append('fileToUpload', pptxBlob, `${addressUpper.replace(/[^a-zA-Z0-9]/g, '_')}_ANALYSIS.pptx`);
+      // Upload to GoFile.io to get a download link
+      // First, get an available server
+      const serverResponse = await fetch('https://api.gofile.io/servers');
+      const serverData = await serverResponse.json();
+      console.log('GoFile servers:', serverData);
 
-      const uploadResponse = await fetch('https://catbox.moe/user/api.php', {
+      if (serverData.status !== 'ok' || !serverData.data.servers.length) {
+        throw new Error('Failed to get upload server');
+      }
+
+      const server = serverData.data.servers[0].name;
+
+      // Upload to the server
+      const formData = new FormData();
+      formData.append('file', pptxBlob, `${addressUpper.replace(/[^a-zA-Z0-9]/g, '_')}_ANALYSIS.pptx`);
+
+      const uploadResponse = await fetch(`https://${server}.gofile.io/contents/uploadfile`, {
         method: 'POST',
         body: formData
       });
 
-      const downloadLink = await uploadResponse.text();
-      console.log('Catbox upload result:', downloadLink);
+      const uploadResult = await uploadResponse.json();
+      console.log('GoFile upload result:', uploadResult);
 
-      if (!downloadLink.startsWith('https://')) {
-        throw new Error('Failed to upload file: ' + downloadLink);
+      if (uploadResult.status !== 'ok') {
+        throw new Error('Failed to upload file');
       }
+
+      const downloadLink = uploadResult.data.downloadPage;
 
       // Prepare email data with all form inputs
       const templateParams = {
