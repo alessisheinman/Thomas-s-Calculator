@@ -292,24 +292,22 @@ function App() {
         mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
       });
 
-      // Upload to tmpfiles.org to get a download link
+      // Upload to Catbox.moe to get a download link
       const formData = new FormData();
-      formData.append('file', pptxBlob, `${addressUpper.replace(/[^a-zA-Z0-9]/g, '_')}_ANALYSIS.pptx`);
+      formData.append('reqtype', 'fileupload');
+      formData.append('fileToUpload', pptxBlob, `${addressUpper.replace(/[^a-zA-Z0-9]/g, '_')}_ANALYSIS.pptx`);
 
-      const uploadResponse = await fetch('https://tmpfiles.org/api/v1/upload', {
+      const uploadResponse = await fetch('https://catbox.moe/user/api.php', {
         method: 'POST',
         body: formData
       });
 
-      const uploadResult = await uploadResponse.json();
-      console.log('tmpfiles.org upload result:', uploadResult);
+      const downloadLink = await uploadResponse.text();
+      console.log('Catbox upload result:', downloadLink);
 
-      if (!uploadResult.data || !uploadResult.data.url) {
-        throw new Error('Failed to upload file');
+      if (!downloadLink.startsWith('https://')) {
+        throw new Error('Failed to upload file: ' + downloadLink);
       }
-
-      // Convert the page URL to a direct download URL
-      const downloadLink = uploadResult.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
 
       // Prepare email data with all form inputs
       const templateParams = {
