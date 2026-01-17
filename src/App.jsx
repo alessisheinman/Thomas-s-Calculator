@@ -8,6 +8,7 @@ import headshotsImage from '../images/headshots.png';
 import contactInfoImage from '../images/Contact Information.png';
 import sideTextImage from '../images/side text.jpg';
 import titleImage from '../images/title.jpg';
+import completionTextImage from '../images/Completion Text.jpg';
 
 // Initialize EmailJS - Replace with your credentials from emailjs.com
 const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
@@ -605,69 +606,20 @@ function App() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="space-y-6"
+              className="h-full flex items-center justify-center"
             >
               {results ? (
-                <>
-                  {/* NOI Card */}
-                  <div className="bg-white/10 backdrop-blur p-6 rounded-xl text-white">
-                    <div className="text-gray-300 text-sm font-semibold uppercase tracking-wide mb-2">
-                      Net Operating Income (NOI)
-                    </div>
-                    <div className="text-3xl sm:text-4xl font-bold text-yellow-400 mb-4">
-                      {formatCurrency(results.noi)}
-                    </div>
-                    <div className="space-y-2 text-sm text-gray-300">
-                      <div className="flex justify-between">
-                        <span>Residential Income:</span>
-                        <span className="text-white">{formatCurrency(results.residential)}</span>
-                      </div>
-                      {buildingType === 'mixed-use' && (
-                        <div className="flex justify-between">
-                          <span>Retail Income:</span>
-                          <span className="text-white">{formatCurrency(results.retail)}</span>
-                        </div>
-                      )}
-                      <div className="flex justify-between">
-                        <span>Operating Expenses:</span>
-                        <span className="text-white">-{formatCurrency(results.expenses)}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Value Estimate Card */}
-                  <div className="bg-white p-6 rounded-xl">
-                    <div className="text-gray-500 text-sm font-semibold uppercase tracking-wide mb-2">
-                      Estimated Property Value
-                    </div>
-                    <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                      <span className="block sm:inline">{formatCurrency(results.valueLow)}</span>
-                      <span className="hidden sm:inline"> - </span>
-                      <span className="block sm:hidden text-lg text-gray-500 font-normal">to</span>
-                      <span className="block sm:inline">{formatCurrency(results.valueHigh)}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-blue-600 mb-4">
-                      <FaPercent />
-                      <span>
-                        Cap Rate: {formatPercent(results.capRateLow)} - {formatPercent(results.capRateHigh)}
-                      </span>
-                    </div>
-                    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-                      <div className="font-semibold text-gray-900">{results.capRateLabel}</div>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Based on {freeMarketPercent}% free-market unit mix in Downtown Manhattan
-                      </p>
-                    </div>
-                  </div>
-                </>
+                <img
+                  src={completionTextImage}
+                  alt="Submission Complete"
+                  className="w-full h-auto rounded-lg"
+                />
               ) : (
-                <div className="h-full flex items-center justify-center">
-                  <img
-                    src={sideTextImage}
-                    alt="Market Analysis Info"
-                    className="w-full h-auto rounded-lg"
-                  />
-                </div>
+                <img
+                  src={sideTextImage}
+                  alt="Market Analysis Info"
+                  className="w-full h-auto rounded-lg"
+                />
               )}
             </motion.div>
           </div>
