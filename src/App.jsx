@@ -348,6 +348,18 @@ function App() {
       );
       console.log('Email sent successfully:', emailResult);
 
+      // Clear the form after successful submission
+      setSubmarket('');
+      setResidentialIncome('');
+      setRetailIncome('');
+      setOperatingExpenses('');
+      setUnitCount('');
+      setFreeMarketPercent(50);
+      setContactName('');
+      setContactPhone('');
+      setContactEmail('');
+      setBuildingAddress('');
+
     } catch (error) {
       console.error('Error details:', error);
       alert(`Error submitting analysis: ${error.text || error.message || 'Unknown error'}. Please try again or contact support.`);
