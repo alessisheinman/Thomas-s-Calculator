@@ -302,12 +302,14 @@ function App() {
       });
 
       const uploadResult = await uploadResponse.json();
+      console.log('File.io upload result:', uploadResult);
 
       if (!uploadResult.success) {
-        throw new Error('Failed to upload file');
+        throw new Error('Failed to upload file to File.io');
       }
 
       const downloadLink = uploadResult.link;
+      console.log('Download link:', downloadLink);
 
       // Prepare email data with all form inputs
       const templateParams = {
@@ -326,16 +328,18 @@ function App() {
       };
 
       // Send email via EmailJS
-      await emailjs.send(
+      console.log('Sending email with params:', templateParams);
+      const emailResult = await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         templateParams,
         EMAILJS_PUBLIC_KEY
       );
+      console.log('Email sent successfully:', emailResult);
 
     } catch (error) {
-      console.error('Error sending email:', error);
-      alert('Error submitting analysis. Please try again or contact support.');
+      console.error('Error details:', error);
+      alert(`Error submitting analysis: ${error.text || error.message || 'Unknown error'}. Please try again or contact support.`);
     }
   };
 
