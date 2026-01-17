@@ -292,24 +292,23 @@ function App() {
         mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
       });
 
-      // Upload to File.io to get a download link
+      // Upload to Litterbox (temporary file hosting) to get a download link
       const formData = new FormData();
-      formData.append('file', pptxBlob, `${addressUpper} ANALYSIS.pptx`);
+      formData.append('reqtype', 'fileupload');
+      formData.append('time', '72h'); // File expires after 72 hours
+      formData.append('fileToUpload', pptxBlob, `${addressUpper} ANALYSIS.pptx`);
 
-      const uploadResponse = await fetch('https://file.io', {
+      const uploadResponse = await fetch('https://litterbox.catbox.moe/resources/serverside/llupload.php', {
         method: 'POST',
         body: formData
       });
 
-      const uploadResult = await uploadResponse.json();
-      console.log('File.io upload result:', uploadResult);
+      const downloadLink = await uploadResponse.text();
+      console.log('Litterbox upload result:', downloadLink);
 
-      if (!uploadResult.success) {
-        throw new Error('Failed to upload file to File.io');
+      if (!downloadLink.startsWith('https://')) {
+        throw new Error('Failed to upload file: ' + downloadLink);
       }
-
-      const downloadLink = uploadResult.link;
-      console.log('Download link:', downloadLink);
 
       // Prepare email data with all form inputs
       const templateParams = {
