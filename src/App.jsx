@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import logoImage from '../images/Logo.jpg';
 import headshotsImage from '../images/headshots.png';
 import contactInfoImage from '../images/Contact Information.png';
+import sideTextImage from '../images/side text.png';
 
 function App() {
   const [buildingType, setBuildingType] = useState('multifamily');
@@ -333,10 +334,12 @@ function App() {
                   </div>
                 </>
               ) : (
-                <div className="bg-white/10 backdrop-blur p-8 rounded-xl h-full flex flex-col items-center justify-center text-center">
-                  <p className="text-gray-300">
-                    The analysis reflects current market and submarket data
-                  </p>
+                <div className="h-full flex items-center justify-center">
+                  <img
+                    src={sideTextImage}
+                    alt="Market Analysis Info"
+                    className="w-full h-auto rounded-lg"
+                  />
                 </div>
               )}
             </motion.div>
