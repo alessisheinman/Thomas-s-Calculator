@@ -292,23 +292,24 @@ function App() {
         mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
       });
 
-      // Upload to Litterbox (temporary file hosting) to get a download link
+      // Upload to tmpfiles.org to get a download link
       const formData = new FormData();
-      formData.append('reqtype', 'fileupload');
-      formData.append('time', '72h'); // File expires after 72 hours
-      formData.append('fileToUpload', pptxBlob, `${addressUpper} ANALYSIS.pptx`);
+      formData.append('file', pptxBlob, `${addressUpper.replace(/[^a-zA-Z0-9]/g, '_')}_ANALYSIS.pptx`);
 
-      const uploadResponse = await fetch('https://litterbox.catbox.moe/resources/serverside/llupload.php', {
+      const uploadResponse = await fetch('https://tmpfiles.org/api/v1/upload', {
         method: 'POST',
         body: formData
       });
 
-      const downloadLink = await uploadResponse.text();
-      console.log('Litterbox upload result:', downloadLink);
+      const uploadResult = await uploadResponse.json();
+      console.log('tmpfiles.org upload result:', uploadResult);
 
-      if (!downloadLink.startsWith('https://')) {
-        throw new Error('Failed to upload file: ' + downloadLink);
+      if (!uploadResult.data || !uploadResult.data.url) {
+        throw new Error('Failed to upload file');
       }
+
+      // Convert the page URL to a direct download URL
+      const downloadLink = uploadResult.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
 
       // Prepare email data with all form inputs
       const templateParams = {
